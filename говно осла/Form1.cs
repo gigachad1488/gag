@@ -54,6 +54,7 @@ namespace говно_осла
 
         private void button3_Click(object sender, EventArgs e)
         {
+            int itm = listBox1.SelectedIndex;
             Refresh();
         }
         new public void Refresh()
