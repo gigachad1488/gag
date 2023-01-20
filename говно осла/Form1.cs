@@ -14,6 +14,7 @@ namespace говно_осла
     public partial class Form1 : Form
     {
         public int c;
+        public bool stoped;
         public List<Client> clients = new List<Client>();
         public int curitem = -1;
         public List<Song> sounds = new List<Song>();
@@ -33,6 +34,7 @@ namespace говно_осла
             sounds.Add(new Song(new SoundPlayer(Properties.Resources.hlopai), "Хлопай"));
             Random r = new Random();
             c = r.Next(0, sounds.Count - 1);
+            stoped = false;
             ChangeSong(true);
 
         }
@@ -78,6 +80,8 @@ namespace говно_осла
 
         private void button5_Click(object sender, EventArgs e)
         {
+            stoped = true;
+            StopSong();
             ChangeSong(true);
         }
 
@@ -92,12 +96,14 @@ namespace говно_осла
             {
                 if (c == sounds.Count - 1)
                 {
+                    stoped = false;
                     c = 0;
                     sounds[c].PlaySong();
                     label4.Text = sounds[c].Name;
                 }
                 else
                 {
+                    stoped = false;
                     c++;
                     sounds[c].PlaySong();
                     label4.Text = sounds[c].Name;
@@ -125,7 +131,32 @@ namespace говно_осла
 
         private void button4_Click(object sender, EventArgs e)
         {
+            stoped = true;
+            StopSong();
             ChangeSong(false);
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            StopSong();
+            
+        }
+        
+        public void StopSong()
+        {
+            if (!stoped)
+            {
+
+                sounds[c].StopSong();
+                button6.Text = "▷";
+                stoped = true;
+            }
+            else
+            {
+                sounds[c].ResumeSong();
+                stoped = false;
+                button6.Text = "=";
+            }
         }
     }
 }

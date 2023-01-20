@@ -22,5 +22,15 @@ namespace говно_осла
         {
             songpath.PlayLooping();
         }
+
+        public void StopSong()
+        {
+            songpath.Stop();
+        }
+
+        public void ResumeSong()
+        {
+            songpath.Play();
+        }
     }
 }
