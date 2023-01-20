@@ -8,6 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using System.IO;
+using NAudio.Wave;
+using NAudio.Wave.SampleProviders;
+using NAudio.CoreAudioApi;
+using NAudio.FileFormats;
+using NAudio.Dmo;
+using NAudio.Utils;
+using NAudio.Dsp;
+using NAudio.Codecs;
+using NAudio.SoundFont;
 
 namespace говно_осла
 {
@@ -25,13 +35,13 @@ namespace говно_осла
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
-            sounds.Add(new Song(new SoundPlayer(Properties.Resources.ham), "Отпути непутю"));
-            sounds.Add(new Song(new SoundPlayer(Properties.Resources.bumer), "Черный бумер"));
-            sounds.Add(new Song(new SoundPlayer(Properties.Resources.malii), "Малый повзрослел"));
-            sounds.Add(new Song(new SoundPlayer(Properties.Resources.sueta), "Суета"));
-            sounds.Add(new Song(new SoundPlayer(Properties.Resources.hohudet), "Время похудеть"));
-            sounds.Add(new Song(new SoundPlayer(Properties.Resources.hlopai), "Хлопай"));
+            GetAllFiles();
+           // sounds.Add(new Song(new SoundPlayer(Properties.Resources.ham), "Отпути непутю"));
+           // sounds.Add(new Song(new SoundPlayer(Properties.Resources.bumer), "Черный бумер"));
+          //  sounds.Add(new Song(new SoundPlayer(Properties.Resources.malii), "Малый повзрослел"));
+          //  sounds.Add(new Song(new SoundPlayer(Properties.Resources.sueta), "Суета"));
+           // sounds.Add(new Song(new SoundPlayer(Properties.Resources.hohudet), "Время похудеть"));
+           // sounds.Add(new Song(new SoundPlayer(Properties.Resources.hlopai), "Хлопай"));
             Random r = new Random();
             c = r.Next(0, sounds.Count - 1);
             stoped = false;
@@ -167,6 +177,35 @@ namespace говно_осла
                 stoped = false;
                 button6.Text = "=";
             }
+        }
+
+        public void GetAllFiles()
+        {
+            string s = Environment.CurrentDirectory;
+            var filelist = Directory.GetFiles(s, "*.*", SearchOption.AllDirectories).Where(ss => ss.EndsWith(".mp3") || ss.EndsWith(".wav"));
+            foreach (string fle in filelist)
+            {
+                int start = fle.LastIndexOf('\\') + 1;
+                int last = fle.Length - 4;
+                string n = fle.Substring(start, last - start);
+                sounds.Add(new Song(new WaveFileReader(fle), n));
+            }
+        }
+
+        public void PlaySounds()
+        {
+            string s = Environment.CurrentDirectory;
+            var filelist = Directory.GetFiles(s, "*.*", SearchOption.AllDirectories).Where(ss => ss.EndsWith(".mp3") || ss.EndsWith(".wav"));
+
+            foreach(string fle in filelist)
+            {
+                
+            }
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+            sounds[c].RestartSong();
         }
     }
 }
