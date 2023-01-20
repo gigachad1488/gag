@@ -25,5 +25,18 @@ namespace говно_осла
             textBox2.Text = client.Phonenumber.ToString();
             textBox3.Text = client.Email;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            client.Fio = textBox1.Text;
+            client.Phonenumber = Convert.ToInt32(textBox2.Text);
+            client.Email = textBox3.Text;
+            this.Close();
+        }
+
+        public Client cli()
+        {
+            return client;
+        }
     }
 }

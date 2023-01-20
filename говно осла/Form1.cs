@@ -55,6 +55,15 @@ namespace говно_осла
         private void button3_Click(object sender, EventArgs e)
         {
             int itm = listBox1.SelectedIndex;
+            Edit edit = new Edit(clients[itm]);
+            edit.ShowDialog();
+            if (edit.DialogResult == DialogResult.OK)
+            {
+                Client ne = new Client();
+                ne = edit.cli();
+                clients[itm] = ne;
+            }
+
             Refresh();
         }
         new public void Refresh()
