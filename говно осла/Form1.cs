@@ -46,6 +46,8 @@ namespace говно_осла
             c = r.Next(0, sounds.Count - 1);
             stoped = false;
             ChangeSong(true);
+            ChangeChar(true);
+            sounds[c].ChangeVolume(volumeSlider1.Volume);
 
         }
 
@@ -101,7 +103,7 @@ namespace говно_осла
         private void button5_Click(object sender, EventArgs e)
         {
             stoped = true;
-            StopSong();
+            sounds[c].DisposeSong();
             ChangeSong(true);
         }
 
@@ -116,16 +118,16 @@ namespace говно_осла
             {
                 if (c == sounds.Count - 1)
                 {
-                    stoped = false;
                     c = 0;
                     sounds[c].PlaySong();
+                    sounds[c].ChangeVolume(volumeSlider1.Volume);
                     label4.Text = sounds[c].Name;
                 }
                 else
                 {
-                    stoped = false;
                     c++;
                     sounds[c].PlaySong();
+                    sounds[c].ChangeVolume(volumeSlider1.Volume);
                     label4.Text = sounds[c].Name;
                 }
 
@@ -137,22 +139,28 @@ namespace говно_осла
                 {
                     c = sounds.Count - 1;
                     sounds[c].PlaySong();
+                    sounds[c].ChangeVolume(volumeSlider1.Volume);
                     label4.Text = sounds[c].Name;
                 }
                 else
                 {
                     c--;
                     sounds[c].PlaySong();
+                    sounds[c].ChangeVolume(volumeSlider1.Volume);
                     label4.Text = sounds[c].Name;
                 }
 
             }
+            stoped = false;
+            ChangeChar(!stoped);
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
+
             stoped = true;
-            StopSong();
+            sounds[c].DisposeSong();
+
             ChangeSong(false);
         }
 
@@ -168,15 +176,24 @@ namespace говно_осла
             {
 
                 sounds[c].StopSong();
-                button6.Text = "▷";
+                ChangeChar(stoped);
                 stoped = true;
             }
             else
             {
                 sounds[c].ResumeSong();
+                ChangeChar(stoped);
                 stoped = false;
-                button6.Text = "=";
+                
             }
+        }
+
+        public void ChangeChar(bool state)
+        {
+            if (state) 
+                button6.Text = "=";
+            else
+                button6.Text = "▷";
         }
 
         public void GetAllFiles()
@@ -188,7 +205,7 @@ namespace говно_осла
                 int start = fle.LastIndexOf('\\') + 1;
                 int last = fle.Length - 4;
                 string n = fle.Substring(start, last - start);
-                sounds.Add(new Song(new WaveFileReader(fle), n));
+                sounds.Add(new Song(fle, n));
             }
         }
 
@@ -205,7 +222,30 @@ namespace говно_осла
 
         private void label5_Click(object sender, EventArgs e)
         {
+            stoped = true;
             sounds[c].RestartSong();
+            sounds[c].ChangeVolume(volumeSlider1.Volume);
+            StopSong();
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void volumeSlider1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void volumeSlider1_VolumeChanged(object sender, EventArgs e)
+        {
+            sounds[c].ChangeVolume(volumeSlider1.Volume);
         }
     }
 }

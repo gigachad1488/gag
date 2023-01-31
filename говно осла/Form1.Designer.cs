@@ -43,6 +43,7 @@
             this.label4 = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.volumeSlider1 = new NAudio.Gui.VolumeSlider();
             this.SuspendLayout();
             // 
             // button1
@@ -134,7 +135,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(330, 44);
+            this.button4.Location = new System.Drawing.Point(330, 64);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(34, 23);
             this.button4.TabIndex = 12;
@@ -144,7 +145,7 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(434, 44);
+            this.button5.Location = new System.Drawing.Point(434, 64);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(34, 23);
             this.button5.TabIndex = 13;
@@ -154,7 +155,7 @@
             // 
             // label4
             // 
-            this.label4.Location = new System.Drawing.Point(330, 2);
+            this.label4.Location = new System.Drawing.Point(330, 22);
             this.label4.Multiline = true;
             this.label4.Name = "label4";
             this.label4.ReadOnly = true;
@@ -164,7 +165,7 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(385, 44);
+            this.button6.Location = new System.Drawing.Point(385, 64);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(31, 23);
             this.button6.TabIndex = 15;
@@ -176,18 +177,28 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label5.Location = new System.Drawing.Point(468, 1);
+            this.label5.Location = new System.Drawing.Point(468, 21);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 25);
             this.label5.TabIndex = 16;
             this.label5.Text = "🔃";
             this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
+            // volumeSlider1
+            // 
+            this.volumeSlider1.Location = new System.Drawing.Point(330, 2);
+            this.volumeSlider1.Name = "volumeSlider1";
+            this.volumeSlider1.Size = new System.Drawing.Size(138, 16);
+            this.volumeSlider1.TabIndex = 17;
+            this.volumeSlider1.VolumeChanged += new System.EventHandler(this.volumeSlider1_VolumeChanged);
+            this.volumeSlider1.Load += new System.EventHandler(this.volumeSlider1_Load);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1053, 559);
+            this.Controls.Add(this.volumeSlider1);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.label4);
@@ -230,6 +241,7 @@
         private System.Windows.Forms.TextBox label4;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label5;
+        private NAudio.Gui.VolumeSlider volumeSlider1;
     }
 }
 
